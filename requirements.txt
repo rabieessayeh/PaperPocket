@@ -1,0 +1,25 @@
+# --- Core ML ---
+torch==2.5.1
+transformers==4.46.3
+tokenizers==0.20.3
+sentence-transformers==3.1.1
+faiss-cpu==1.12.0
+safetensors==0.4.3
+accelerate==1.0.1
+sentencepiece==0.2.0
+
+# --- PDF processing ---
+pdfplumber==0.11.4
+pypdf2==3.0.1
+pypdf==5.0.1
+
+# --- Web / App ---
+streamlit==1.38.0
+requests==2.32.3
+python-dotenv==1.0.1
+
+# --- Utils ---
+scikit-learn==1.5.2
+numpy==2.1.1
+packaging==24.1
+charset-normalizer==3.3.2
