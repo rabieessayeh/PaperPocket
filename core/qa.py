@@ -44,8 +44,11 @@ class SimpleRetriever:
 
 _SYS_QA = (
     "You are a precise scientific assistant. Use ONLY the provided context. "
-    "If the context is insufficient, say you don't know."
+    "Always cite passages as [i]. If the context is insufficient, say you don't know. "
+    "Never use meta phrases like 'according to the context', 'based on the context', "
+    "'selon le contexte', etc."
 )
+
 
 
 def _build_context_block(passages: Sequence[str]) -> str:
@@ -77,11 +80,22 @@ def answer_with_retriever(
 
     prompt = (
         "You are given a user question and a set of retrieved context passages.\n"
-        "Answer the question strictly based on the context. If insufficient, say you don't know.\n\n"
+        "Answer strictly and concisely using ONLY the context. "
+        "Always cite passages as [i] right after the claim they support. "
+        "If insufficient, say you don't know.\n"
+        "**Do NOT use meta phrases like 'according to the context', 'based on the context', "
+        "'selon le contexte', 'd'après le contexte', 'au vu du contexte', or similar. "
+        "State facts directly with citations.**\n\n"
+        "Style: declarative, neutral, no filler, no apologies.\n\n"
+        "Example:\n"
+        "Q: What methods are discussed?\n"
+        "A: The study uses a comparative review of national guidelines [1] and "
+        "a Delphi process for consensus building [2].\n\n"
         f"Question: {question}\n\n"
         f"Context:\n{context}\n\n"
-        "Answer:"
+        "Answer (with [i] citations only):"
     )
+
     return lm.generate(prompt, temperature=0.2, system=_SYS_QA).strip()
 
 

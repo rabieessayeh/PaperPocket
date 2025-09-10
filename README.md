@@ -94,7 +94,7 @@ Then open [http://localhost:8501](http://localhost:8501) in your browser.
 │   ├── summarize.py    # Summarization pipeline
 │   ├── qa.py           # Retriever & QA
 │   ├── model_ollama.py # Ollama client
-│   └── model_local.py  #  custom embeddings
+│   └── model_local.py  # custom embeddings
 ├── requirements.txt
 └── README.md
 ```
