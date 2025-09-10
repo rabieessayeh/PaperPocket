@@ -20,7 +20,7 @@ You can **upload a PDF**, **summarize it automatically**, and **ask questions** 
 
 ### 1. Clone the repository
 ```bash
-git clone https://github.com/yourusername/paperpocket.git
+git clone https://github.com/rabieessayeh/PaperPocket.git
 cd paperpocket
 ```
 
