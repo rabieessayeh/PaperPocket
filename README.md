@@ -27,16 +27,6 @@ pip install -r requirements.txt
 
 
 
-
-
-
-### Activate a virtual environment
-```bash
-python -m venv .venv
-source .venv/bin/activate   # Linux / macOS
-.venv\Scripts\activate      # Windows
-```
-
 ## ⚙️ Configuration
 
 PaperPocket uses environment variables (from `.env` if present).
