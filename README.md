@@ -1,69 +1,77 @@
 # 🧪 PaperPocket
 
-PaperPocket is a lightweight web app that helps researchers interact with scientific papers.  
-You can **upload a PDF**, **summarize it automatically**, and **ask questions** about its content using an AI assistant powered by **Ollama** and local embeddings.
+PaperPocket is a lightweight research assistant.  
+Upload a PDF, summarize it, and ask questions about its content using an interchangeable LLM backend.
 
 ---
 
-## 🚀 Features
-
-- 📄 **PDF Upload & Parsing** – extract text from research articles.  
-- ✂️ **Text Chunking** – split long documents into overlapping segments.  
-- 📝 **Summarization** – generate concise factual summaries (≤10 bullet points).  
-- 🔍 **Retriever-Augmented QA** – ask questions about the paper, answers are grounded in retrieved context.  
-- ⚡ **Local Embeddings** – optional use of `sentence-transformers` or custom embedding models.  
-- 🖥️ **Streamlit UI** – simple, interactive interface.  
+## Features
+- PDF upload & text extraction  
+- Text chunking for long documents  
+- Automatic summarization (≤10 bullet points)  
+- Retrieval-augmented QA (answers grounded in context)  
+- Streamlit interface  
 
 ---
 
-## 🛠️ Installation
+## ⚙️ Installation
 
-### 1. Clone the repository
 ```bash
 git clone https://github.com/rabieessayeh/PaperPocket.git
-cd paperpocket
+cd PaperPocket
+python -m venv .venv
+source .venv/bin/activate   # Linux / macOS
+.venv\Scripts\activate      # Windows
+pip install -r requirements.txt 
 ```
 
-### 2. Create and activate a virtual environment
+
+
+
+
+
+### Activate a virtual environment
 ```bash
 python -m venv .venv
 source .venv/bin/activate   # Linux / macOS
 .venv\Scripts\activate      # Windows
 ```
 
-### 3. Install dependencies
-```bash
-pip install -r requirements.txt
-```
-
-Dependencies include:
-- **ML & Embeddings**: PyTorch, Transformers, Sentence-Transformers, FAISS  
-- **PDF Processing**: PyPDF2, pdfplumber  
-- **Web App**: Streamlit, python-dotenv, Requests  
-- **Utils**: NumPy, scikit-learn  
-
----
-
 ## ⚙️ Configuration
 
-PaperPocket uses environment variables (from `.env` if present):
+PaperPocket uses environment variables (from `.env` if present).
 
-- **Ollama settings**:  
-  - `OLLAMA_HOST` (default: `http://localhost:11434`)  
-  - `OLLAMA_MODEL` (default: `llama3.1:latest`)  
-  - `OLLAMA_NUM_CTX`, `OLLAMA_NUM_PREDICT`, `OLLAMA_NUM_THREAD`, etc.
+### 🔹 Ollama
+- `OLLAMA_HOST` (default: `http://localhost:11434`)  
+- `OLLAMA_MODEL` (e.g., `llama3.1:8b-instruct-q4_K_M`)  
+- Optional: `OLLAMA_NUM_CTX`, `OLLAMA_NUM_PREDICT`, `OLLAMA_NUM_THREAD`, `OLLAMA_KEEP_ALIVE`, `OLLAMA_HTTP_TIMEOUT`  
 
-- **Embedding model settings**:  
-  - `EMBED_MODEL` (default: `intfloat/multilingual-e5-small`)  
-  - `EMBED_DEVICE` (default: auto)  
-  - `EMBED_DTYPE` (default: `float16`)  
+### 🔹 GPT-OSS-20B
+- `GPTOSS_HOST` (default: `http://localhost:8000/v1`)  
+- `GPTOSS_MODEL` (default: `gpt-oss-20b`)  
+- `GPTOSS_API_KEY` (token if required)  
+- `GPTOSS_TIMEOUT` (default: `300`)  
 
-Example `.env` file:
+### 🔹 Embeddings
+- `EMBED_MODEL` (default: `intfloat/multilingual-e5-small`)  
+- `EMBED_DEVICE` (default: auto)  
+- `EMBED_DTYPE` (default: `float16`)  
+
+### Example `.env`
 ```env
+# --- Ollama ---
+OLLAMA_HOST=http://localhost:11434
 OLLAMA_MODEL=llama3.1:8b-instruct-q4_K_M
-EMBED_MODEL=intfloat/multilingual-e5-base
-```
 
+# --- GPT-OSS-20B ---
+# GPTOSS_HOST=http://localhost:8000/v1
+# GPTOSS_MODEL=gpt-oss-20b
+# GPTOSS_API_KEY=your_api_key_here
+
+# --- Embeddings ---
+EMBED_MODEL=intfloat/multilingual-e5-base
+
+```
 ---
 
 ## ▶️ Usage
@@ -75,29 +83,6 @@ streamlit run app.py
 
 Then open [http://localhost:8501](http://localhost:8501) in your browser.
 
-### Workflow
-1. **Upload a PDF** in the sidebar.  
-2. The document is automatically **indexed** for retrieval.  
-3. Use **Summarize** to get a concise overview.  
-4. Ask your own questions in natural language, and the assistant will answer based only on the paper’s content.  
-
----
-
-## 📂 Project Structure
-
-```
-.
-├── app.py              # Streamlit UI
-├── core/
-│   ├── pdf_reader.py   # PDF text extraction
-│   ├── text_utils.py   # Cleaning & chunking
-│   ├── summarize.py    # Summarization pipeline
-│   ├── qa.py           # Retriever & QA
-│   ├── model_ollama.py # Ollama client
-│   └── model_local.py  # custom embeddings
-├── requirements.txt
-└── README.md
-```
 
 ---
 
@@ -109,14 +94,6 @@ Then open [http://localhost:8501](http://localhost:8501) in your browser.
 4. **Summarization** → map-reduce style, concise factual bullets  
 5. **QA** → retrieve relevant passages + answer strictly from context  
 6. **LLM backend** → Ollama provides completions  
-
----
-
-## 🧑‍💻 Requirements
-
-- Python **3.9+**  
-- [Ollama](https://ollama.ai) installed and running locally  
-- (Optional) GPU for faster embeddings  
 
 ---
 

@@ -26,7 +26,7 @@ class OllamaLM:
         OLLAMA_KEEP_ALIVE (default: 30m)
     """
 
-    model: str = os.getenv("OLLAMA_MODEL", "llama3.1:latest")
+    model: str = os.getenv("OLLAMA_MODEL", "mistral:7b-instruct")
     host: str = os.getenv("OLLAMA_HOST", "http://localhost:11434")
 
     def __post_init__(self) -> None:
